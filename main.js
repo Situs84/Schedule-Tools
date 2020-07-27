@@ -78,6 +78,7 @@ function groupAssign(id, val) {
 async function genCanvas() {
     var outContainer = document.getElementById("outCanv");
     var inContainer = document.getElementsByClassName("inCanv")[0];
+    var myWindow = window.open();
     inContainer.style.display = "block";
     var canvas = await html2canvas(inContainer, {
         backgroundColor: "#2a2a2a",
@@ -86,7 +87,6 @@ async function genCanvas() {
     }).then(canvas => {
         inContainer.style.display = "none";
         var uri = canvas.toDataURL();
-        var myWindow = window.open();
         myWindow.document.write('<img src="' + uri + '"/>');
     });
     //tabGen(canvas, inContainer);
