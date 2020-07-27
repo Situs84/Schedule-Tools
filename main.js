@@ -75,18 +75,26 @@ function groupAssign(id, val) {
     }
 }
 
-function genCanvas() {
+async function genCanvas() {
     var outContainer = document.getElementById("outCanv");
     var inContainer = document.getElementsByClassName("inCanv")[0];
     inContainer.style.display = "block";
-    html2canvas(inContainer, {
-        backgroundColor: null,
+    var canvas = await html2canvas(inContainer, {
+        backgroundColor: "#2a2a2a",
+        allowTaint: true,
+        foreignObjectRendering: true
     }).then(canvas => {
         inContainer.style.display = "none";
-        //window.open(canvas.toDataURL);
-        var newTab = window.open();
-        //newTab.document.body.innerHTML = '<img src="' + canvas.toDataURL() + '" width="1500px" height="1500px">';
-        //console.log(canvas.toDataURL());
-        newTab.document.body.append(canvas);
+        var uri = canvas.toDataURL();
+        var myWindow = window.open();
+        myWindow.document.write('<img src="' + uri + '"/>');
     });
+    //tabGen(canvas, inContainer);
+}
+
+function tabGen(canvas, inContainer) {
+    //window.open(canvas.toDataURL);
+    //newTab.document.body.innerHTML = '<img crossorigin="anonymous" src="' + canvas.toDataURL() + '" width="1500px" height="1500px">';
+    //console.log(canvas.toDataURL());
+    //newTab.document.body.append(canvas);
 }
