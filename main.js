@@ -83,7 +83,10 @@ function genCanvas() {
         backgroundColor: null,
     }).then(canvas => {
         inContainer.style.display = "none";
+        //window.open(canvas.toDataURL);
         var newTab = window.open();
+        //newTab.document.body.innerHTML = '<img src="' + canvas.toDataURL() + '" width="1500px" height="1500px">';
+        //console.log(canvas.toDataURL());
         newTab.document.body.append(canvas);
     });
 }
