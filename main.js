@@ -87,7 +87,9 @@ function genCanvas() {
     html2canvas(inContainer, {
         backgroundColor: "#2a2a2a",
         allowTaint: true,
-        foreignObjectRendering: true
+        foreignObjectRendering: true,
+        useCORS: true,
+        imageTimeout: 1000,
     }).then(canvas => {
         canvas.style.height = "268px";
         canvas.style.width = "268px";
