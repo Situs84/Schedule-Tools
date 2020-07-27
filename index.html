@@ -22,7 +22,7 @@
         
         body {
             font-family: 'Hind', sans-serif !important;
-            height: 100%;
+            overflow: hidden;
         }
         
         .navbar {
@@ -55,17 +55,21 @@
             text-align: center;
         }
         
-        li.nav-item a {
-            color: white;
+        li.nav-item {
+            color: white !important;
             font-weight: 500;
             outline: none;
+        }
+        
+        li.nav-item a {
+            color: white;
         }
         
         li.nav-item {
             border-radius: 2px;
         }
         
-        li.nav-item:hover {
+        li.hoverable:hover {
             background: #9b0024;
         }
         
@@ -100,7 +104,8 @@
             border-radius: 12px;
             width: 100%;
             text-align: center !important;
-            font-size: 1rem;
+            font-size: .75rem;
+            font-weight: 700;
             color: white;
         }
         
@@ -109,7 +114,7 @@
         }
         
         #resultsRegion #resultsArea .rowStandard div {
-            padding: 3px 0;
+            padding: 16px 3px;
             margin: 0;
         }
         
@@ -121,7 +126,7 @@
         
         .row .rowLunch {
             background: white;
-            height: 6px !important;
+            height: 12px !important;
             border-radius: 3px;
         }
         
@@ -149,7 +154,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm">
+    <nav class="navbar navbar-expand-sm" role="navigation">
         <span class="navbar-brand">LHP Schedule Tools</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle menu">
                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-card-text" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
@@ -158,9 +163,14 @@
                 </svg>
             </button>
         <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav">
-                <li class="nav-item">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item hoverable">
                     <a href="https://drive.google.com/file/d/1GZIs-sQRkaulIK0VyZe8xYKTfzElBmVE/view?usp=sharing" class="nav-link">Official Upper School Schedule</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <span class="nav-link">&copy; 2020 Matt Poteshman</span>
                 </li>
             </ul>
         </div>
@@ -171,35 +181,36 @@
                 <div id="entryBox">
                     <form id="entryForm" class="row" method="get">
                         <div class="form-group col-md-12 col-sm-12 col-lg-12">
-                            <label for="nameInput">Name (Required)</label>
-                            <input required type="text" class="form-control" id="nameInput" placeholder="Derek Daly">
+                            <label for="nameIn">Name</label>
+                            <input type="text" class="form-control" id="nameIn" placeholder="Alexander Hamilton">
                         </div>
                         <div class="form-group col-md-12 col-sm-6 col-lg-12">
-                            <label for="cs1">Class Slot 1 (Required)</label>
-                            <input required type="text" class="form-control" id="cs1" placeholder="Coffee">
+                            <label for="in1">Class Slot 1 (Required)</label>
+                            <input required type="text" class="form-control" id="in1" placeholder="Yorktown">
                         </div>
                         <div class="form-group col-md-12 col-sm-6 col-lg-12">
-                            <label for="cs2">Class Slot 2 (Required)</label>
-                            <input required type="text" class="form-control" id="cs2" placeholder="Paperwork">
+                            <label for="in2">Class Slot 2 (Required)</label>
+                            <input required type="text" class="form-control" id="in2" placeholder="Economic Policy">
                         </div>
                         <div class="form-group col-md-12 col-sm-6 col-lg-12">
-                            <label for="cs3">Class Slot 3 (Required)</label>
-                            <input required type="text" class="form-control" id="cs3" placeholder="Meetings">
+                            <label for="in3">Class Slot 3 (Required)</label>
+                            <input required type="text" class="form-control" id="in3" placeholder="Closed-door meetings">
                         </div>
                         <div class="form-group col-md-12 col-sm-6 col-lg-12">
-                            <label for="cs4">Class Slot 4 (Required)</label>
-                            <input required type="text" class="form-control" id="cs4" placeholder="Discipline">
+                            <label for="in4">Class Slot 4 (Required)</label>
+                            <input required type="text" class="form-control" id="in4" placeholder="Debate Burr">
                         </div>
                         <div class="form-group col-md-12 col-sm-6 col-lg-12">
-                            <label for="cs5">Class Slot 5 (Required)</label>
-                            <input required type="text" class="form-control" id="cs5" placeholder="The Daly Stroll">
+                            <label for="in5">Class Slot 5 (Required)</label>
+                            <input required type="text" class="form-control" id="in5" placeholder="Write the Federalist Papers">
                         </div>
                         <div class="form-group col-md-12 col-sm-6 col-lg-12">
-                            <label for="cs6">Class Slot 6 (Required)</label>
-                            <input required type="text" class="form-control" id="cs6" placeholder="Smile N' Wave">
+                            <label for="in6">Class Slot 6 (Required)</label>
+                            <input required type="text" class="form-control" id="in6" placeholder="The Duel">
                         </div>
                         <div class="btn-div col-md-12 col-sm-12 col-lg-12">
                             <button type="submit" class="btn btn-primary">Generate</button>
+                            <button class="btn btn-primary" onclick="genCanvas()">Create Wallpaper</button>
                         </div>
                     </form>
                 </div>
@@ -208,43 +219,43 @@
                 <div id="resultsArea">
                     <div class="container-fluid" id="resultsTable">
                         <div class="row rowHeader">
-                            <div id="cname" class="col-12">My Schedule</div>
+                            <div class="nameOut col-12">My Schedule</div>
                         </div>
                         <div class="row rowTransition"></div>
                         <div class="row rowStandard">
                             <div class="csec col-2"><b>1</b></div>
-                            <div id="c1" class="col-2">Class 1</div>
-                            <div id="c1" class="col-2">Class 1</div>
-                            <div id="c2" class="col-2">Class 2</div>
-                            <div id="c1" class="col-2">Class 1</div>
-                            <div id="c2" class="col-2">Class 2</div>
+                            <div class="out1 col-2">Class 1</div>
+                            <div class="out1 col-2">Class 1</div>
+                            <div class="out2 col-2">Class 2</div>
+                            <div class="out1 col-2">Class 1</div>
+                            <div class="out2 col-2">Class 2</div>
                         </div>
                         <div class="row rowTransition"></div>
                         <div class="row rowStandard">
                             <div class="csec col-2"><b>2</b></div>
-                            <div class="col-2"><u>Unity/Clubs</u></div>
-                            <div id="c3" class="col-2">Class 3</div>
-                            <div id="c3" class="col-2">Class 3</div>
-                            <div id="c5" class="col-2">Class 5</div>
-                            <div id="c3" class="col-2">Class 3</div>
+                            <div class="col-2">Unity/ Clubs</div>
+                            <div class="out3 col-2">Class 3</div>
+                            <div class="out3 col-2">Class 3</div>
+                            <div class="out5 col-2">Class 5</div>
+                            <div class="out3 col-2">Class 3</div>
                         </div>
                         <div class="row rowTransition"></div>
                         <div class="row rowStandard">
                             <div class="csec col-2"><b>3</b></div>
-                            <div id="c4" class="col-2">Class 4</div>
-                            <div id="c2" class="col-2">Class 2</div>
-                            <div id="c4" class="col-2">Class 4</div>
-                            <div id="c4" class="col-2">Class 4</div>
-                            <div class="col-2"><u>Assembly</u></div>
+                            <div class="out4 col-2">Class 4</div>
+                            <div class="out2 col-2">Class 2</div>
+                            <div class="out4 col-2">Class 4</div>
+                            <div class="out4 col-2">Class 4</div>
+                            <div class="col-2">Assembly</div>
                         </div>
                         <div class="row rowLunch"></div>
                         <div class="row rowStandard">
                             <div class="csec col-2"><b>4</b></div>
-                            <div id="c5" class="col-2">Class 5</div>
-                            <div id="c6" class="col-2">Class 6</div>
-                            <div id="c5" class="col-2">Class 5</div>
-                            <div id="c6" class="col-2">Class 6</div>
-                            <div id="c6" class="col-2">Class 6</div>
+                            <div class="out5 col-2">Class 5</div>
+                            <div class="out6 col-2">Class 6</div>
+                            <div class="out5 col-2">Class 5</div>
+                            <div class="out6 col-2">Class 6</div>
+                            <div class="out6 col-2">Class 6</div>
                         </div>
                         <div class="row rowTransition"></div>
                     </div>
@@ -253,13 +264,82 @@
         </div>
     </main>
 
-    <!-- Other JavaScript Import -->
+    <!-- Bootstrap-Related JavaScript Import -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js " integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj " crossorigin="anonymous "></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js " integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo " crossorigin="anonymous "></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js " integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI " crossorigin="anonymous "></script>
 
+    <!-- HTML To Canvas -->
+    <script src="html2canvas.min.js"></script>
+
     <!-- Custom JavaScript Import-->
     <script src="main.js"></script>
 </body>
+
+<!-- non-responsive (hidden) -->
+<div id="resultsRegion" class="inCanv" style="width: 1500px;height:1500px;display:flex; padding:500px;align-items: center;background-image: url('escheresque_ste.png');margin-top:100%">
+    <div id="resultsArea" style="font-size: .75rem !important;font-weight:700">
+        <div class="container-fluid" id="resultsTable">
+            <div class="row rowHeader">
+                <div class="nameOut col-12">My Schedule</div>
+            </div>
+            <div class="row rowTransition" style="
+            background: white;
+            height: 3px !important;
+            border-radius: 3px;margin: 0 15px;"></div>
+            <div class="row rowStandard" style="margin-right: 15px;">
+                <div class="csec col-2"><b>1</b></div>
+                <div class="out1 col-2">Class 1</div>
+                <div class="out1 col-2">Class 1</div>
+                <div class="out2 col-2">Class 2</div>
+                <div class="out1 col-2">Class 1</div>
+                <div class="out2 col-2">Class 2</div>
+            </div>
+            <div class="row rowTransition" style="
+            background: white;
+            height: 3px !important;
+            border-radius: 3px;margin: 0 15px;"></div>
+            <div class="row rowStandard" style="margin-right: 15px;">
+                <div class="csec col-2"><b>2</b></div>
+                <div class="col-2">Unity/Clubs</div>
+                <div class="out3 col-2">Class 3</div>
+                <div class="out3 col-2">Class 3</div>
+                <div class="out5 col-2">Class 5</div>
+                <div class="out3 col-2">Class 3</div>
+            </div>
+            <div class="row rowTransition" style="
+            background: white;
+            height: 3px !important;
+            border-radius: 3px;margin: 0 15px;"></div>
+            <div class="row rowStandard" style="margin-right: 15px;">
+                <div class="csec col-2"><b>3</b></div>
+                <div class="out4 col-2">Class 4</div>
+                <div class="out2 col-2">Class 2</div>
+                <div class="out4 col-2">Class 4</div>
+                <div class="out4 col-2">Class 4</div>
+                <div class="col-2">Assembly</div>
+            </div>
+            <div class="row rowLunch" style="
+            background: white;
+            height: 12px !important;
+            border-radius: 3px;margin: 0 15px;"></div>
+            <div class="row rowStandard" style="margin-right: 15px;">
+                <div class="csec col-2"><b>4</b></div>
+                <div class="out5 col-2">Class 5</div>
+                <div class="out6 col-2">Class 6</div>
+                <div class="out5 col-2">Class 5</div>
+                <div class="out6 col-2">Class 6</div>
+                <div class="out6 col-2">Class 6</div>
+            </div>
+            <div class="row rowTransition" style="
+            background: white;
+            height: 3px !important;
+            border-radius: 3px;margin: 0 15px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- canvas container (hidden) -->
+<span id="outCanv" style="display:none;"></span>
 
 </html>

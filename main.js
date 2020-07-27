@@ -1,5 +1,5 @@
 var items;
-var name;
+var daName;
 var c1;
 var c2;
 var c3;
@@ -9,61 +9,80 @@ var c6;
 
 //var entryForm;
 $(document).ready(function() {
-    name = {
-        cid: "cname",
-        content: "My Schedule"
+    daName = { in: "nameIn",
+        out: "nameOut",
+        content: ""
     };
-    c1 = {
-        cid: "c1",
+    c1 = { in: "in1",
+        out: "out1",
         content: "Class 1"
     };
-    c2 = {
-        cid: "c2",
+    c2 = { in: "in2",
+        out: "out2",
         content: "Class 2"
     };
-    c3 = {
-        cid: "c3",
+    c3 = { in: "in3",
+        out: "out3",
         content: "Class 3"
     };
-    c4 = {
-        cid: "c4",
+    c4 = { in: "in4",
+        out: "out4",
         content: "Class 4"
     };
-    c5 = {
-        cid: "c5",
+    c5 = { in: "in5",
+        out: "out5",
         content: "Class 5"
     };
-    c6 = {
-        cid: "c6",
+    c6 = { in: "in6",
+        out: "out6",
         content: "Class 6"
     };
-    items = [name, c1, c2, c3, c4, c5, c6];
+    items = [daName, c1, c2, c3, c4, c5, c6];
+    updateTable();
     //entryForm = document.getElementById("entryForm");
 });
 
-function updateTable() {
-    console.log(name);
-    //document.getElementById(name.id).innerHTML = element.content;
-    document.getElementById(c1.cid).innerHTML = c1.content;
-    document.getElementById(c2.cid).innerHTML = c2.content;
-    document.getElementById(c3.cid).innerHTML = c3.content;
-    document.getElementById(c4.cid).innerHTML = c4.content;
-    document.getElementById(c5.cid).innerHTML = c5.content;
-    document.getElementById(c6.cid).innerHTML = c6.content;
-    console.log("Update Complete");
-}
 entryForm.onsubmit = async(e) => {
     e.preventDefault();
-    name.content = simpleId("nameInput").value;
-    c1.content = simpleId("cs1").value;
-    c2.content = simpleId("cs2").value;
-    c3.content = simpleId("cs3").value;
-    c4.content = simpleId("cs4").value;
-    c5.content = simpleId("cs5").value;
-    c6.content = simpleId("cs6").value;
-    console.log(name);
+    daName.content = simpleGet(daName.in);
+    c1.content = simpleGet(c1.in);
+    c2.content = simpleGet(c2.in);
+    c3.content = simpleGet(c3.in);
+    c4.content = simpleGet(c4.in);
+    c5.content = simpleGet(c5.in);
+    c6.content = simpleGet(c6.in);
+    updateTable();
 }
 
-function simpleId(v) {
-    return document.getElementById(v);
+function updateTable() {
+    groupAssign(daName.out, daName.content == "" ? "My Schedule" : daName.content + "'s Schedule");
+    groupAssign(c1.out, c1.content);
+    groupAssign(c2.out, c2.content);
+    groupAssign(c3.out, c3.content);
+    groupAssign(c4.out, c4.content);
+    groupAssign(c5.out, c5.content);
+    groupAssign(c6.out, c6.content);
+}
+
+function simpleGet(id) {
+    return document.getElementById(id).value;
+}
+
+function groupAssign(id, val) {
+    var x = document.getElementsByClassName(id);
+    for (var i = 0; i < x.length; i++) {
+        x[i].innerHTML = val;
+    }
+}
+
+function genCanvas() {
+    var outContainer = document.getElementById("outCanv");
+    var inContainer = document.getElementsByClassName("inCanv")[0];
+
+    html2canvas(inContainer, {
+        backgroundColor: null,
+    }).then(canvas => {
+        var newTab = window.open();
+        newTab.document.body.append(canvas);
+    });
 }
