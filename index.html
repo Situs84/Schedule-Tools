@@ -149,6 +149,17 @@
         #resultsTable .rowHeader {
             font-weight: 700;
         }
+        
+        #outputArea {
+            margin-top: 16px;
+            border-radius: 12px;
+            padding: 16px;
+            background: #c3002f;
+            height: fit-content;
+            display: none;
+            justify-content: center;
+            flex-direction: column;
+        }
     </style>
 </head>
 <!-- non-responsive (hidden) -->
@@ -321,6 +332,9 @@
                         <div class="row rowTransition"></div>
                     </div>
                 </div>
+                <div id="outputArea">
+                    <p style="color:white; text-align: center">Right click and press "save" to save image.</p>
+                </div>
             </div>
         </div>
     </main>
@@ -336,8 +350,5 @@
     <!-- Custom JavaScript Import-->
     <script src="main.js"></script>
 </body>
-
-<!-- canvas container (hidden) -->
-<span id="outCanv" style="display:none;"></span>
 
 </html>

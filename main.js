@@ -75,12 +75,30 @@ function groupAssign(id, val) {
     }
 }
 
-async function genCanvas() {
-    var outContainer = document.getElementById("outCanv");
+function genCanvas() {
+    var outContainer = document.getElementById("outputArea");
     var inContainer = document.getElementsByClassName("inCanv")[0];
-    var myWindow = window.open();
+    if (document.getElementById("outputCanvas") != null) {
+        outContainer.removeChild(document.getElementById("outputCanvas"));
+    }
+    //var myWindow = window.open();
     inContainer.style.display = "block";
-    var canvas = await html2canvas(inContainer, {
+    window.scrollTo(0, 0);
+    html2canvas(inContainer, {
+        backgroundColor: "#2a2a2a",
+        allowTaint: true,
+        foreignObjectRendering: true
+    }).then(canvas => {
+        canvas.style.height = "268px";
+        canvas.style.width = "268px";
+        canvas.id = "outputCanvas"
+        outContainer.appendChild(canvas);
+        inContainer.style.display = "none";
+        outContainer.style.display = "flex";
+        outContainer.style.alignItems = "center";
+        canvas.scrollIntoView();
+    });
+    /*html2canvas(inContainer, {
         backgroundColor: "#2a2a2a",
         allowTaint: true,
         foreignObjectRendering: true
@@ -88,7 +106,8 @@ async function genCanvas() {
         inContainer.style.display = "none";
         var uri = canvas.toDataURL();
         myWindow.document.write('<img src="' + uri + '"/>');
-    });
+        outContainer.appendChild(canvas);
+    });*/
     //tabGen(canvas, inContainer);
 }
 
