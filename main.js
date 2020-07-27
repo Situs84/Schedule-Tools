@@ -91,14 +91,15 @@ function genCanvas() {
         useCORS: true,
         imageTimeout: 1000,
     }).then(canvas => {
-        canvas.style.height = "268px";
-        canvas.style.width = "268px";
-        canvas.id = "outputCanvas"
-        outContainer.appendChild(canvas);
+        //canvas.style.height = "268px";
+        //canvas.style.width = "268px";
+        //canvas.id = "outputCanvas"
+        var uri = canvas.toDataURL();
+        outContainer.innerHTML += '<img style="width: 268px; height: 268px" id="outputCanvas" src="' + uri + '"/>';
         inContainer.style.display = "none";
         outContainer.style.display = "flex";
         outContainer.style.alignItems = "center";
-        canvas.scrollIntoView();
+        outContainer.scrollIntoView();
     });
     /*html2canvas(inContainer, {
         backgroundColor: "#2a2a2a",
