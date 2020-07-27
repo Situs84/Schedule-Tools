@@ -78,10 +78,11 @@ function groupAssign(id, val) {
 function genCanvas() {
     var outContainer = document.getElementById("outCanv");
     var inContainer = document.getElementsByClassName("inCanv")[0];
-
+    inContainer.style.display = "block";
     html2canvas(inContainer, {
         backgroundColor: null,
     }).then(canvas => {
+        inContainer.style.display = "none";
         var newTab = window.open();
         newTab.document.body.append(canvas);
     });
